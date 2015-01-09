@@ -1,0 +1,24 @@
+diff --git a/src/cmd/fontsrv/x11.c b/src/cmd/fontsrv/x11.c
+index 43b013e..0119923 100644
+--- a/src/cmd/fontsrv/x11.c
++++ b/src/cmd/fontsrv/x11.c
+@@ -36,16 +36,16 @@ loadfonts(void)
+ 	xfont = emalloc9p(sysfonts->nfont*sizeof xfont[0]);
+ 	memset(xfont, 0, sysfonts->nfont*sizeof xfont[0]);
+ 	for(i=0; i<sysfonts->nfont; i++) {
+-		FcChar8 *fullname, *fontfile;
++		FcChar8 *familyname, *fontfile;
+ 		int index;
+ 		FcPattern *pat = sysfonts->fonts[i];
+ 
+-		if(FcPatternGetString(pat, FC_FULLNAME, 0, &fullname) != FcResultMatch ||
++		if(FcPatternGetString(pat, FC_FAMILY, 0, &familyname) != FcResultMatch ||
+ 		   FcPatternGetString(pat, FC_FILE, 0, &fontfile) != FcResultMatch     ||
+ 		   FcPatternGetInteger(pat, FC_INDEX, 0, &index) != FcResultMatch)
+ 			continue;
+ 
+-		xfont[nxfont].name     = strdup((char*)fullname);
++		xfont[nxfont].name     = strdup((char*)familyname);
+ 		xfont[nxfont].fontfile = strdup((char*)fontfile);
+ 		xfont[nxfont].index    = index;
+ 		nxfont++;
